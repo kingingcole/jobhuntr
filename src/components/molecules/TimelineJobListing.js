@@ -17,17 +17,11 @@ class TimelineJobListing extends React.Component{
 		let test_image = 'https://via.placeholder.com/150';
 		let {company, title, logo, time, slug} = this.props;
 		const job_url = `/job/${slug}`;
-<<<<<<< HEAD
-		// console.log(this.props);
-		return(
-				<LazyLoadComponent>
-					<div className='row mx-auto my-2 listing' style={this.style}>
-=======
+
 		console.log(this.props);
 		return(
 				<LazyLoadComponent>
 					<div className='row mx-auto my-2' style={this.style}>
->>>>>>> 96db5f0b6b521c3d783e4ffc847da92c2c594b6f
 						<div className=" col-9 text-left">
 							<h4 className='mb-0 ' style={{fontWeight:'500'}}>
 								<Link to={job_url}>{title}</Link>
