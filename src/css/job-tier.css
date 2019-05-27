@@ -1,0 +1,25 @@
+.tier{
+    border: 1px solid #D9D6FF;
+    -webkit-box-shadow:  0 2px 4px 0 rgba(0, 0, 0, 0.1);
+    -moz-box-shadow:  0 2px 4px 0 rgba(0, 0, 0, 0.1);
+    box-shadow:  0 2px 4px 0 rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    cursor: pointer;
+
+}
+
+.tier:hover{
+    border-color: rgb(108, 99, 255);
+    transition: border-color 0.3s;
+}
+.tier:focus{
+    border-color: red;
+    transition: border-color 0.3s;
+}
+
+@media screen and (min-width: 765px) {
+    .tier{
+        max-width: 230px !important;
+        margin: auto
+    }
+}

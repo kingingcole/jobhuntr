@@ -1,0 +1,18 @@
+.progress-text{
+    font-max-size: 19px;
+    font-weight: 400;
+    color: #666 !important;
+    text-align: left;
+}
+
+.progress-count{
+    margin-bottom: 100px;
+    display: inline;
+}
+
+@media screen and (max-width: 767px) {
+    .progress-count{
+        margin-bottom: 1px;
+        display: inline-block;
+    }
+}

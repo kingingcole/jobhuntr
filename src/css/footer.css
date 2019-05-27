@@ -1,0 +1,47 @@
+.footer{
+	background: #302C6E;
+	padding: 40px 10px 60px 10px;
+}
+
+.footer  .container{
+		max-width: 768px
+}
+
+.footer-section{
+	margin: 20px 0
+}
+
+.footer p{
+	color: #DBDAE9;
+	font-size: 0.875rem;
+	margin: 5px
+}
+
+.resources{
+	font-weight: bold;
+	line-height: 30px;
+	margin-bottom: 15px
+}
+
+.social {
+	width: 20%;
+	position: relative;
+	display: inline-block;
+	margin-top: 3px
+}
+
+.social i{
+	color: white;
+	font-size: 1.5em
+}
+
+.social i:hover{
+	color: #B4AFFF;
+	transition: color 0.2s
+}
+
+
+.footer-btn:hover{
+	background: #B4AFFF !important;
+	transition: background 0.2s !important
+}

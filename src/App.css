@@ -1,0 +1,113 @@
+p, h1, h2, h3, h4, h5{
+    font-family: "Montserrat", sans-serif;
+}
+
+.btn:active{
+    outline: none !important;
+    box-shadow: none !important 
+}
+
+.ck-file-dialog-button{
+    display: none
+}
+
+button.ck.ck-button.ck-off.ck-dropdown__button,
+button.ck.ck-button.ck-on.ck-dropdown__button{
+    display: none !important;
+}
+.SocialMediaShareButton{
+    margin-right: 5px
+}
+
+
+section{
+    padding: 70px 0 100px 0;
+}
+
+input:focus, select:focus, input:active, select:active{
+    /*border: 1.4px solid rgb(180, 175, 255) !important;*/
+    box-shadow: 0px 1px 4px 0px rgb(180, 175, 255) !important;
+}
+
+
+.lazy-load-image-background img{
+    border-radius: 5px
+}
+
+h4 a{
+    color: rgb(108, 99, 255);
+}
+.time-sm{
+        display: none
+    }
+<<<<<<< HEAD
+.listing{
+    transition: 0.4s all;
+}
+.listing:hover{
+    /*border: none !important;*/
+    transition: 0.4s all;
+    box-shadow: rgba(0, 0, 0, 0.3) 0px 1px 4px 0px;
+    border-top: none
+}
+
+.tag{
+    padding: 4px 6px;
+    border: 1px solid rgba(108, 99, 255, 0.4);
+    margin: 2px;
+    border-radius: 4px;
+    font-size: 0.8em;
+    color: rgba(108, 99, 255, 0.9);
+    cursor: pointer;
+    display: inline-block
+}
+
+.tag:hover{
+    background: rgba(108, 99, 255, 0.9);
+    color: white;
+}
+
+.apply-btn:hover, .apply-btn:active, .cta-btn:hover, .cta-btn:active{
+    background: #6d66d6 !important;
+    outline: none !important;
+    box-shadow: none !important
+}
+
+=======
+>>>>>>> 96db5f0b6b521c3d783e4ffc847da92c2c594b6f
+
+@media screen and (max-width: 767px){
+		.apply-btn{
+		display: none;
+	}
+}
+
+@media screen and (max-width: 425px){
+    h2{
+        font-size: 1.5rem
+    }
+    p, p.lead{
+        font-size: 1rem
+    }
+    h4 a{
+        font-size: 1.1rem;
+    }
+    .company{
+        font-size: 0.8rem;
+    }
+    .time-sm, .time-md{
+        font-size: 0.7rem
+    }
+    .time-md{
+        display: none
+    }
+    .time-sm{
+        display: inline-block
+    }
+}
+
+@media screen and (max-width: 280px){
+    .lazy-load-image-background img{
+        width: 50px
+}
+}

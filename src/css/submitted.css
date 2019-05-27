@@ -1,0 +1,31 @@
+.submitted{
+    background: white;
+    margin: 70px auto 150px auto
+}
+
+.fa-check{
+    color: white;
+    font-size: 1.2rem;
+    background: #00643bc2;
+    padding: 16px;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+}
+
+.submitted h1{
+    font-weight: 700;
+    font-size: 1.5rem;
+    margin: 10px !important;
+}
+
+.submitted p{
+    font-size: 0.8em;
+}
+
+@media screen and (max-width: 375px){
+    .submitted{
+        background: white;
+        margin: 70px auto 90px auto
+    }
+}

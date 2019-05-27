@@ -1,0 +1,32 @@
+.job-info-form {
+    border: 1px solid #DBDAE9;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin: 30px auto 80px auto;
+}
+
+.input-label{
+    color: #020021;
+    font-size: 0.875rem;
+    font-weight: bold;
+
+}
+
+/*.job-info-form input, .job-info-form select, .job-info-form .basic-multi-select{
+    max-width: 350px;
+}*/
+
+.required{
+    color: #AEB6BE
+}
+
+::placeholder{
+    color: #AEB6BE !important;
+    font-size: 0.8em;
+}
+
+.ck-content{
+    height: 140px;
+    border: 1px solid #E8E7F4;
+    color: black
+}
