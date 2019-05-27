@@ -14,10 +14,11 @@ class PromotedJobListing extends React.Component{
 	}
 	render() {
 		let test_image = 'https://via.placeholder.com/150';
-		let {company, title, logo, slug} = this.props;
+		let {company, title, logo, slug,} = this.props;
 		const job_url = `/job/${slug}`;
+
 		return(
-				<div className='row mx-auto my-2' style={this.style}>
+				<div className='row mx-auto my-2 job-listing' style={this.style}>
 					<div className=" col-9 text-left">
 						<h4 className='mb-0 ' style={{fontWeight:'500'}}>
 							<Link to={job_url}>{title}</Link>

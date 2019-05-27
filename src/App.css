@@ -36,15 +36,16 @@ input:focus, select:focus, input:active, select:active{
 
 h4 a{
     color: rgb(108, 99, 255);
+    font-size: 1rem;
 }
-.time-sm{
-        display: none
-    }
-<<<<<<< HEAD
-.listing{
+.time-sm,{
+    display: none;
+}
+
+.job-listing{
     transition: 0.4s all;
 }
-.listing:hover{
+.job-listing:hover{
     /*border: none !important;*/
     transition: 0.4s all;
     box-shadow: rgba(0, 0, 0, 0.3) 0px 1px 4px 0px;
@@ -52,7 +53,7 @@ h4 a{
 }
 
 .tag{
-    padding: 4px 6px;
+    padding: 0px 4px;
     border: 1px solid rgba(108, 99, 255, 0.4);
     margin: 2px;
     border-radius: 4px;
@@ -73,8 +74,7 @@ h4 a{
     box-shadow: none !important
 }
 
-=======
->>>>>>> 96db5f0b6b521c3d783e4ffc847da92c2c594b6f
+
 
 @media screen and (max-width: 767px){
 		.apply-btn{
@@ -84,25 +84,29 @@ h4 a{
 
 @media screen and (max-width: 425px){
     h2{
-        font-size: 1.5rem
+        font-size: 1.2rem
     }
     p, p.lead{
         font-size: 1rem
     }
     h4 a{
-        font-size: 1.1rem;
+        font-size: 0.9rem;
+        line-height: 0rem
     }
     .company{
-        font-size: 0.8rem;
+        font-size: 0.75rem;
     }
     .time-sm, .time-md{
-        font-size: 0.7rem
+        font-size: 0.65rem
     }
     .time-md{
         display: none
     }
     .time-sm{
         display: inline-block
+    }
+    .job-listing{
+        padding: 10px 0px !important
     }
 }
 

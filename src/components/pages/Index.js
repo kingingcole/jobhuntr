@@ -36,16 +36,16 @@ class Index extends Component{
 
     render(){
         let {featured, promoted, timeline} = this.state;
-        // console.log(featured, featured.length);
+        // console.log(featured);
         // console.log(promoted, promoted.length);
 
-        console.log(timeline , timeline.length);
+        // console.log(timeline , timeline.length);
 
         // console.log(timeline[Object.keys(timeline)[0]])
 
         const jobs_section = featured.length && promoted.length ? (
                 <Fragment>
-                    <FeaturedOfferSection featured={this.state.featured}/>
+                    <FeaturedOfferSection featured={featured}/>
                     <OtherOffersSection promoted={promoted} timeline={timeline}/>
                 </Fragment>
             ) : (<CustomLoader/>);
