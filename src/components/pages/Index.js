@@ -20,11 +20,8 @@ class Index extends Component{
         let url = `${BASE_API}/home`;
         axios.get(url)
             .then(res => {
-<<<<<<< HEAD
-                // console.log(res.data);
-=======
                 console.log(res.data);
->>>>>>> 96db5f0b6b521c3d783e4ffc847da92c2c594b6f
+
                 let {timeline, featured, promoted} = res.data
                 this.setState({
                     featured: featured,
@@ -39,18 +36,16 @@ class Index extends Component{
 
     render(){
         let {featured, promoted, timeline} = this.state;
-        // console.log(featured, featured.length);
+        // console.log(featured);
         // console.log(promoted, promoted.length);
-<<<<<<< HEAD
+
         // console.log(timeline , timeline.length);
-=======
-        console.log(timeline , timeline.length);
->>>>>>> 96db5f0b6b521c3d783e4ffc847da92c2c594b6f
+
         // console.log(timeline[Object.keys(timeline)[0]])
 
         const jobs_section = featured.length && promoted.length ? (
                 <Fragment>
-                    <FeaturedOfferSection featured={this.state.featured}/>
+                    <FeaturedOfferSection featured={featured}/>
                     <OtherOffersSection promoted={promoted} timeline={timeline}/>
                 </Fragment>
             ) : (<CustomLoader/>);
@@ -67,11 +62,7 @@ class Index extends Component{
                             <h2 style={{fontWeight: '800'}}>The best place to find <span style={{color:'rgb(108, 99, 255)'}}>technical</span> jobs on the internet</h2>
                             <p className='lead'>Browse from jobs provided by the best companies in the world</p>
                             <Link to='/job/create'>
-<<<<<<< HEAD
-                                <Button className='cta-btn' fontSize='20px'>Post a job <small style={{display: ''}}>from $199</small></Button>
-=======
                                 <Button fontSize='20px'>Post a job <small style={{display: ''}}>from $199</small></Button>
->>>>>>> 96db5f0b6b521c3d783e4ffc847da92c2c594b6f
                             </Link>
 
                             {jobs_section}
