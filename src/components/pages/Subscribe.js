@@ -37,12 +37,12 @@ class Subscribe extends Component {
 
             })
             .catch(err => {
-                console.log(err);
+                console.log(err, err.response);
             });
 
         axios.get('https://restcountries.eu/rest/v2/all')
             .then(res => {
-                console.log(res.data);
+                // console.log(res.data);
                 this.setState({
                     countries: res.data
                 })
@@ -98,7 +98,7 @@ class Subscribe extends Component {
             })
             .catch(err=>{
                 console.log(err, err.response.data.errors.email[0]);
-                if (err.response.data.errors.email[0] === 'The email has already been taken.'){
+                if (err.response.data.errors.email[0]){
                     console.log('yeah');
                     let emailTakenErr = err.response.data.errors.email[0]
                     this.setState({
@@ -107,7 +107,7 @@ class Subscribe extends Component {
                     })
                 }
             })
-        console.log(preference) //an axios POST will be made here
+        // console.log(preference) 
     };
 
     render() {
@@ -143,7 +143,7 @@ class Subscribe extends Component {
                            placeholder="awesome@you.com" required value={email}
                            onChange={(e) => this.handleChange('email', e.target.value)}/>
                     {emailTakenErr.length ? (
-                            <p style={{color:'red', fontSize: '1em', marginTop:'5px'}}>{emailTakenErr}</p>
+                            <p style={{color:'red', fontSize: '0.85em', marginTop:'5px'}}>{emailTakenErr}</p>
                         ) : (null)}
                 </div>
                 <div className="form-group">
