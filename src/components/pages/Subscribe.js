@@ -42,7 +42,7 @@ class Subscribe extends Component {
 
         axios.get('https://restcountries.eu/rest/v2/all')
             .then(res => {
-                // console.log(res.data);
+                console.log(res.data);
                 this.setState({
                     countries: res.data
                 })
@@ -51,34 +51,38 @@ class Subscribe extends Component {
                 console.log(err, err.response);
             });
 
+        // axios.get('countries.json')
+        //     .then(res => {
+        //         console.log(res.data);
+        //         // console.log(res.data[this.state.preference.location])
+        //         this.setState({countriesWithState: res.data})
+        //         }
+        //     )
     }
 
     handleChange = (target, value) => {
         this.setState({
             preference: {...this.state.preference, [target]: value}
         });
-        console.log(this.state)
+        // console.log(this.state)
     };
 
-    getSelectedCategories = (select) => {
-        let result = [];
-        let options = select && select.options;
-        let opt;
+    
 
-        for (let i=0, iLen=options.length; i<iLen; i++){
-            opt = options [i];
-            if (opt.selected){
-                result.push(opt.value || opt.text);
-            }
-        }
-        return result
-    }
-
-    handleCategoryChange = (e) => {
+    handleCategoryChange = () => {
         let el = document.getElementById('category');
-        console.log(el, this.getSelectedCategories(el));
+        // console.log(this.getSelectedCategories(el));
+        var selected = [];
+        for (var i = 0; i < el.length; i++) {
+            if (el.options[i].selected) selected.push(el.options[i].value);
+        }
+        this.setState({
+            preference: {...this.state.preference, ['category_id']: selected}
+        })
+        console.log(selected);
         // this.handleChange('category_id', this.handleCategoryChange(el))
     }
+
 
     Subscribe = (e) => {
         e.preventDefault();
@@ -93,8 +97,8 @@ class Subscribe extends Component {
                 this.setState({subscribed: true})
             })
             .catch(err=>{
-                console.log(err, err.response, err.response.data.errors.email[0]);
-                if (err.response.data.errors.email[0] === 'The email has already been subscribed.'){
+                console.log(err, err.response.data.errors.email[0]);
+                if (err.response.data.errors.email[0] === 'The email has already been taken.'){
                     console.log('yeah');
                     let emailTakenErr = err.response.data.errors.email[0]
                     this.setState({
@@ -146,7 +150,7 @@ class Subscribe extends Component {
                     <label htmlFor="category" className='input-label'>Choose interest</label>
                     <small className="required">required</small>
                     <select multiple className="form-control" id='category' required
-                            onChange={(e) => this.handleCategoryChange(e)}>
+                            onChange={this.handleCategoryChange}>
                         {CategoryField}
                     </select>
                 </div>
@@ -155,7 +159,7 @@ class Subscribe extends Component {
                     <label htmlFor="location" className='input-label'>Location</label>
                     <small className="required">required</small>
                     <select className="form-control" id='location' required
-                            onChange={(e) => this.handleChange('country', e.target.value)}>
+                            onChange={(e) => this.handleChange('location', e.target.value)}>
                         {CountryField}
                     </select>
                 </div>
