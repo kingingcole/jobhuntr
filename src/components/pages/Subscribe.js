@@ -42,7 +42,7 @@ class Subscribe extends Component {
 
         axios.get('https://restcountries.eu/rest/v2/all')
             .then(res => {
-                console.log(res.data);
+                // console.log(res.data);
                 this.setState({
                     countries: res.data
                 })
@@ -51,9 +51,6 @@ class Subscribe extends Component {
                 console.log(err, err.response);
             });
 
-
-        axios.get('countries.json')
-            .then(res => console.log(res.data))
     }
 
     handleChange = (target, value) => {
@@ -96,8 +93,8 @@ class Subscribe extends Component {
                 this.setState({subscribed: true})
             })
             .catch(err=>{
-                console.log(err, err.response.data.errors.email[0]);
-                if (err.response.data.errors.email[0] === 'The email has already been taken.'){
+                console.log(err, err.response, err.response.data.errors.email[0]);
+                if (err.response.data.errors.email[0] === 'The email has already been subscribed.'){
                     console.log('yeah');
                     let emailTakenErr = err.response.data.errors.email[0]
                     this.setState({
