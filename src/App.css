@@ -74,7 +74,16 @@ h4 a{
     box-shadow: none !important
 }
 
+.stripe-input{
+    border: 0px solid rgba(108, 99, 255, 0.9);
+    border-radius: 5px;
+    padding: 10px 5px;
+    box-shadow: rgba(108, 99, 255, 0.9) 1px 1px 6px;
+}
 
+.stripe-input:focus, .stripe-input:active{
+    box-shadow: rgba(108, 99, 255, 0.9) 1px 1px 20px !important;
+}
 
 @media screen and (max-width: 767px){
 		.apply-btn{
