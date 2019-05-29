@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Button = ({children, bgColor, color, padding, fontSize, fontWeight, className, type, width}) => {
+const Button = ({children, bgColor, color, padding, fontSize, fontWeight, className, type, width, onClick}) => {
 
 	const btnStyle = {
 		backgroundColor: bgColor || 'rgb(108, 99, 255)',
@@ -14,7 +14,7 @@ const Button = ({children, bgColor, color, padding, fontSize, fontWeight, classN
 	let class_name = `${className} btn`;
 
 	return (
-			<button type={type || 'submit'} className={class_name} style={btnStyle}>{children}</button>
+			<button type={type || 'submit'} className={class_name} style={btnStyle} onClick={onClick}>{children}</button>
 		)
 } ;
 

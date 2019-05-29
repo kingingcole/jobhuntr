@@ -6,7 +6,8 @@
     "@ckeditor/ckeditor5-build-classic": "^12.1.0",
     "@ckeditor/ckeditor5-react": "^1.1.3",
     "axios": "^0.18.0",
-    "express": "^4.16.4",
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
     "react": "^16.8.6",
     "react-async-script-loader": "^0.3.0",
     "react-dom": "^16.8.6",
@@ -21,8 +22,10 @@
     "react-scripts": "2.1.8",
     "react-select": "^2.4.3",
     "react-share": "^2.4.0",
+    "react-stripe-elements": "^3.0.0",
     "redux": "^4.0.1",
     "serve": "^11.0.0",
+    "stripe": "^7.1.0",
     "styled-components": "^4.2.0"
   },
   "scripts": {
@@ -41,5 +44,6 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ]
+  ],
+  "proxy": "http://localhost:9000"
 }
