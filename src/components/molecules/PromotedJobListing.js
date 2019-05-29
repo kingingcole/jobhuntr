@@ -23,7 +23,7 @@ class PromotedJobListing extends React.Component{
 						<h4 className='mb-0 ' style={{fontWeight:'500'}}>
 							<Link to={job_url}>{title}</Link>
 						</h4>
-						<p className='my-1 d-inline mr-3 company'>{company}</p><small><i>Promoted</i></small>
+						<p className='my-1 d-inline mr-3 company'>{company}</p><small><i style={{fontSize: '0.7rem'}}>Promoted</i></small>
 					</div>
 					<div className="col-3 text-right">
 						<CompanyLogo logo={logo} borderRadius='50%' width='50px' marginLeft='auto' company={company}/>
