@@ -7,9 +7,11 @@ let stripe_sk_test = process.env.REACT_APP_STRIPE_SECRET_TEST_KEY;
 let stripe_sk_live = process.env.REACT_APP_STRIPE_SECRET_LIVE_KEY;
 let node_env = process.env.NODE_ENV;
 
-let stripe_key = node_env === 'development' ? stripe_sk_test : stripe_sk_live
+// checks node envirpnment whether dev or production
+// if dev use the test stripe keys
+// if production use the stripe live keys
+let stripe_key = node_env === 'development' ? stripe_sk_test : stripe_sk_live;
 
-console.log(stripe_key);
 
 class CheckoutForm extends Component {
     constructor(props) {
@@ -21,7 +23,8 @@ class CheckoutForm extends Component {
     async submit(ev) {
         // User clicked submit
         let {token} = await this.props.stripe.createToken({name: "Name"});
-        console.log(token.id)
+        console.log(token.id);
+        let tokenId = node_env === 'development' ?  'tok_visa' : token.id;
         let response = await fetch("/charge", {
             method: "POST",
             headers: {
@@ -30,7 +33,8 @@ class CheckoutForm extends Component {
             },
             body: JSON.stringify({
                 amount: 2000,
-                tokenId: token.id
+                tokenId,
+                stripe_key
             })
         });
 
@@ -42,7 +46,6 @@ class CheckoutForm extends Component {
     }
 
     render() {
-
         if (this.state.complete) return <h1>Purchase Complete</h1>;
 
         return (
