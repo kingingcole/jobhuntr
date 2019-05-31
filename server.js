@@ -1,20 +1,27 @@
-const app = require("express")();
-const stripe = require("stripe")("sk_test_4eC39HqLyjWDarjtT1zdp7dc");
+const express = require("express");
+const app = express();
 
-app.use(require("body-parser").text());
+
+
+app.use(express.json());
 
 app.post("/charge", async (req, res) => {
     try {
+        let {amount, tokenId, stripe_key} = req.body; // params sent in with client
+        const stripe = require("stripe")(stripe_key); // initializes stripe with the stripe keys passed from client
+        // console.log(amount, tokenId, stripe_key);
         let {status} = await stripe.charges.create({
-            amount: 2000,
+            amount,
             currency: "usd",
             description: "An example charge",
-            source: req.body
+            source: tokenId
         });
-
+        console.log(status);
         res.json({status});
     } catch (err) {
-        res.status(500).end();
+        // res.status(500).end();
+        res.json({err}).end();
+        console.log(err)
     }
 });
 
