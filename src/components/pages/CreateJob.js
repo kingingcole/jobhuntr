@@ -10,6 +10,7 @@ import axios from 'axios'
 class CreateJob extends Component{
     state = {
         step: 1,
+        amount: '',
         jobDetails: {
             title: '',
             tags: 'hy',
@@ -51,6 +52,12 @@ class CreateJob extends Component{
         this.setState({
             jobDetails: {...this.state.jobDetails, [target]: value}
         });
+    };
+
+    setAmountCharged = (amount) => {
+        this.setState({
+            amount
+        })
     };
 
     submitJob = () => {
@@ -117,6 +124,7 @@ class CreateJob extends Component{
                     prevStep={this.prevStep}
                     handleChange = {this.handleChange}
                     submitJob = {this.submitJob}
+                    setAmountCharged = {this.setAmountCharged}
                     values={values}
                 />;
             case 4:
@@ -125,7 +133,9 @@ class CreateJob extends Component{
                 nextStep={this.nextStep}
                 prevStep={this.prevStep}
                 values={values}
-                submitJob={this.submitJob}/>
+                submitJob={this.submitJob}
+                amount={this.state.amount}
+                />
             default:
                 return null
         }

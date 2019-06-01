@@ -8,13 +8,14 @@ import CustomLoader from '../atoms/Loader'
 import axios from 'axios'
 import BASE_API from '../../constants'
 import PaypalCheckout from '../molecules/PaypalCheckout'
-import {Link} from "react-router-dom";
+
+// import {Link} from "react-router-dom";
 
 
 class CreateJob3 extends Component {
 
     state = {
-        plans:[],
+        plans: [],
         price: 0
     };
 
@@ -24,8 +25,14 @@ class CreateJob3 extends Component {
         })
     };
 
+    submitTier = () => {
+        this.props.setAmountCharged(this.state.price);
+        this.props.nextStep();
+    };
+
     componentDidMount() {
-        document.title = 'Create Job (Billing)- JobHuntr.io'
+        document.title = 'Create Job (Billing)- JobHuntr.io';
+        console.log(this.props.values)
         let url = `${BASE_API}/tiers`;
         axios.get(url)
             .then(res => {
@@ -51,7 +58,8 @@ class CreateJob3 extends Component {
         let {plans, price} = this.state;
         if (plans.length) {
             var tiers = this.state.plans.map(plan => {
-                return <JobTier name={plan.name} features={plan.features} price={plan.price} key={plan.id} id={plan.id} setPrice={this.setPrice} handleChange={handleChange}/>
+                return <JobTier name={plan.name} features={plan.features} price={plan.price} key={plan.id} id={plan.id}
+                                setPrice={this.setPrice} handleChange={handleChange}/>
             });
         }
         let plansPage = this.state.plans.length ? (
@@ -72,30 +80,30 @@ class CreateJob3 extends Component {
 
                             </div>
                             <div className='col-12 col-md-6 text-right'>
-                                <h3 className='font-weight-bold mb-2'>Total Payment Due</h3>
-                                <h4 className='mt-0'>{`$${this.state.price}`}</h4>
-                                
-
+                                <h5 className='font-weight-bold mb-2'>Total Payment Due</h5>
+                                <h5 className='mt-0 font-weight-bold'>{`$${this.state.price}`}</h5>
                             </div>
 
                         </div>
                         <div className='row'>
                             <div className="col-sm-12 col-md-6 text-md-right text-center my-2">
-                                <span onClick={prevStep}>
-                            <Button type='button' bgColor='rgba(108, 99, 255, 0.1)' color='#8481B4' className='btn' fontSize='0.875rem' fontWeight='500' padding='7px 37px'>BACK</Button>
-                                </span>
+                                <Button onClick={prevStep} type='button' bgColor='rgba(108, 99, 255, 0.1)'
+                                        color='#8481B4'
+                                        className='btn' fontSize='0.875rem' fontWeight='500'
+                                        padding='7px 37px'>BACK</Button>
                             </div>
                             <div className="col-sm-12 col-md-6 text-center text-md-left my-2">
-                                <span>
-                                    <PaypalCheckout price={price} submitJob={submitJob}/>
-                                </span>
+                                <Button onClick={this.submitTier} type='submit' bgColor='#6C63FF' color='white'
+                                        className='btn'
+                                        fontSize='0.875rem'
+                                        fontWeight='500' padding='7px 37px'>NEXT</Button>
                             </div>
                         </div>
                     </div>
                 </div>
             </section>
         ) : (
-            <CustomLoader />
+            <CustomLoader/>
         );
         return (
             <Fragment>
