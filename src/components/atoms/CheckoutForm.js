@@ -4,6 +4,8 @@ import Button from '../atoms/Button'
 import {Link} from "react-router-dom";
 import axios from 'axios'
 
+
+
 let stripe_sk_test = process.env.REACT_APP_STRIPE_SECRET_TEST_KEY;
 let stripe_sk_live = process.env.REACT_APP_STRIPE_SECRET_LIVE_KEY;
 let node_env = process.env.NODE_ENV;
@@ -23,12 +25,30 @@ class CheckoutForm extends Component {
 
     state = {
         complete: false,
+        paying: false,
         cardExpired: '', //state for card expired
+        incorrectCVC: '',
+        cardProcessingError: '',
         cardError: '' //this is the state that handles card error when tokenization from client does not work. May be due to network or error in card details
+    }
+
+    onFocus = (elemType) => {
+        let id = `stripe-${elemType}`;
+        let elem = document.getElementById(id);
+        console.log(elem);
+        elem.classList.add("stripe-input-focus")
+    }
+
+    onBlur = (elemType) => {
+        let id = `stripe-${elemType}`;
+        let elem = document.getElementById(id);
+        console.log(elem);
+        elem.classList.remove("stripe-input-focus")
     }
 
     async submit(ev) {
         // User clicked submit
+        this.setState({paying: true});
         let {token} = await this.props.stripe.createToken({name: "Name"});
         if (token){
             // tokenization is successful and a token is returned. Yay!
@@ -37,8 +57,9 @@ class CheckoutForm extends Component {
                 this.setState({cardError: ''}) // removes error message if there is one already
             }; 
 
-            console.log(token.id);
-            let tokenId = node_env === 'development' ?  'tok_chargeDeclinedExpiredCard' : token.id;
+            // console.log(token.id);
+            let testToken = 'tok_visa' //this is used in testing for a specific error in stripe
+            let tokenId = node_env === 'development' ?  testToken : token.id;
             // let response = await fetch("/charge", {
             //     method: "POST",
             //     headers: {
@@ -74,9 +95,36 @@ class CheckoutForm extends Component {
                         // transaction was not successful
                         // run error handling for major card issues
 
-                        //expired card
-                        if (res.data.error.code === 'expired_card'){
-                            this.setState({cardExpired: res.data.error.message})
+                        this.setState({
+                            paying: false,
+                            cardError: 'An error occured while initiating the transaction. Please check your card details and/or network.'
+                        })
+                        
+                        switch(res.data.error.code) {
+                            case 'expired_card':
+                                // expired card
+                                this.setState({cardExpired: res.data.error.message});
+                                break;
+                            case 'incorrect_cvc':
+                                // cvc is incorrect
+                                this.setState({incorrectCVC: res.data.error.message});
+                                break;
+                            case 'processing_error':
+                                // error in card number
+                                this.setState({cardProcessingError: res.data.error.message});
+                                break;
+                            case 'card_declined':
+                                // card declined
+                                this.setState({cardProcessingError: res.data.error.message});
+                                break;
+                            case 'insufficient_funds':
+                                // broke ass niggas
+                                this.setState({cardProcessingError: res.data.error.message})
+                                break;
+                            default:
+                                // every other thing goes
+                                this.setState({cardProcessingError: 'An error occurred. Please try again later.'})
+
                         }
                     }
                 })
@@ -91,15 +139,16 @@ class CheckoutForm extends Component {
             // }
         } else{
             // token does not complete because card details are incorrect
-            console.log('Token error')
+            console.log('Token error');
             this.setState({
-                cardError: 'An error occured while initiating the transaction. Please check your card details and/or network.'
+                cardError: 'An error occured while initiating the transaction. Please check your card details and/or network.',
+                paying: false
             })
         }
     }
 
     render() {
-        let {cardError, cardExpired} = this.state
+        let {paying, cardError, cardExpired, incorrectCVC, cardProcessingError} = this.state
         if (this.state.complete) return <h1>Purchase Complete</h1>;
 
         return (
@@ -111,27 +160,37 @@ class CheckoutForm extends Component {
                             <p className='form-submit-error'>{cardError}</p>
                         ) : (null)}
 
-                <CardNumberElement className='stripe-input'/>
+                <CardNumberElement className='stripe-input' id='stripe-cardNumber' onFocus = {(e) => this.onFocus(e.elementType)} onBlur = {(e) => this.onBlur(e.elementType)}/>
+                {cardProcessingError.length ? (
+                            <p className='form-submit-error'>{cardProcessingError}</p>
+                        ) : (null)}
                 <div className="row my-4">
                     <div className="col-6">
-                        <CardExpiryElement className='stripe-input'/>
+                        <CardExpiryElement className='stripe-input' id='stripe-cardExpiry' onFocus= {(e) => this.onFocus(e.elementType)}onBlur = {(e) => this.onBlur(e.elementType)} />
                         {cardExpired.length ? (
                             <p className='form-submit-error'>{cardExpired}</p>
                         ) : (null)}
                     </div>
                     <div className="col-6">
-                        <CardCVCElement className='stripe-input'/>
+                        <CardCVCElement className='stripe-input' id='stripe-cardCvc' onFocus= {(e) => this.onFocus(e.elementType)} onBlur = {(e) => this.onBlur(e.elementType)}/>
+                        {incorrectCVC.length ? (
+                            <p className='form-submit-error'>{incorrectCVC}</p>
+                        ) : (null)}
                     </div>
                 </div>
                 {/*<button onClick={this.submit}>Send</button>*/}
                 <div className='row'>
                     <div className="col-sm-12 col-md-6 text-md-right text-center my-2">
                         <Link to='/'>
-                            <Button type='button' bgColor='rgba(108, 99, 255, 0.1)' color='#8481B4' className='btn' fontSize='0.875rem' fontWeight='500' padding='7px 37px'>CANCEL</Button>
+                            <Button type='button' bgColor='rgba(108, 99, 255, 0.1)' color='#8481B4' className='btn' fontSize='0.875rem' fontWeight='500' padding='7px 37px'>CANCEL AND GO HOME</Button>
                         </Link>
                     </div>
                     <div className="col-sm-12 col-md-6 text-center text-md-left my-2">
-                            <Button onClick={this.submit} type='button' bgColor='#6C63FF' color='white' className='btn' fontSize='0.875rem' fontWeight='500' padding='7px 37px'>PAY</Button>
+                            <Button onClick={this.submit} type='button' bgColor='#6C63FF' color='white' className='btn' fontSize='0.875rem' fontWeight='500' padding='7px 37px'>
+                                {paying ? (
+                                        'PAYING...'
+                                    ) : ('PAY AND SUBMIT JOB')}
+                            </Button>
                     </div>
                 </div>
             </div>

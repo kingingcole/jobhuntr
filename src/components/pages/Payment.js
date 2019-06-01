@@ -8,7 +8,6 @@ class Payment extends Component {
             <StripeProvider apiKey="pk_test_TYooMQauvdEDq54NiTphI7jx">
                 <section>
                     <div className="container">
-                        <h1>React Stripe Elements Example</h1>
                         <Elements>
                             <CheckoutForm/>
                         </Elements>

@@ -75,10 +75,14 @@ h4 a{
 }
 
 .stripe-input{
-    border: 0px solid rgba(108, 99, 255, 0.9);
+    border: 1px solid rgba(108, 99, 255, 0.9);
     border-radius: 5px;
     padding: 10px 5px;
-    box-shadow: rgba(108, 99, 255, 0.9) 1px 1px 6px;
+    transition: box-shadow 0.4s
+}
+
+.stripe-input-focus{
+    box-shadow: rgba(108, 99, 255, 0.9) 1px 1px 6px !important;
 }
 
 .form-submit-error{

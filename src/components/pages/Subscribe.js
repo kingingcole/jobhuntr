@@ -143,7 +143,7 @@ class Subscribe extends Component {
                            placeholder="awesome@you.com" required value={email}
                            onChange={(e) => this.handleChange('email', e.target.value)}/>
                     {emailTakenErr.length ? (
-                            <p style={{color:'red', fontSize: '0.85em', marginTop:'5px'}}>{emailTakenErr}</p>
+                            <p className='form-submit-error'>{emailTakenErr}</p>
                         ) : (null)}
                 </div>
                 <div className="form-group">
