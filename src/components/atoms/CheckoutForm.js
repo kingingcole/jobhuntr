@@ -80,7 +80,7 @@ class CheckoutForm extends Component {
                     'Content-Type': 'application/json'
                   },
                   data: {
-                    amount: 2000,
+                    amount: 29900, //this should be dynamic and coming from price of selected tier in tier selection plan
                     tokenId,
                     stripe_key
                   }
