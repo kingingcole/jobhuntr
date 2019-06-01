@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import CreateJob1 from './CreateJob1'
 import CreateJob2 from './CreateJob2'
 import CreateJob3 from './CreateJob3'
+import Payment from './Payment'
 import BASE_API from '../../constants'
 import axios from 'axios'
 
@@ -118,6 +119,13 @@ class CreateJob extends Component{
                     submitJob = {this.submitJob}
                     values={values}
                 />;
+            case 4:
+                return <Payment
+                step={step}
+                nextStep={this.nextStep}
+                prevStep={this.prevStep}
+                values={values}
+                submitJob={this.submitJob}/>
             default:
                 return null
         }
