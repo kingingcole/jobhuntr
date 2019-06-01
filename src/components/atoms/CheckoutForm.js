@@ -6,8 +6,8 @@ import axios from 'axios'
 
 
 
-let stripe_sk_test = process.env.REACT_APP_STRIPE_SECRET_TEST_KEY;
-let stripe_sk_live = process.env.REACT_APP_STRIPE_SECRET_LIVE_KEY;
+let stripe_sk_test = process.env.REACT_APP_STRIPE_SECRET_TEST_KEY; //stripe secret test key
+let stripe_sk_live = process.env.REACT_APP_STRIPE_SECRET_LIVE_KEY; //stripe secret live key
 let node_env = process.env.NODE_ENV;
 
 // checks node envirpnment whether dev or production
@@ -19,36 +19,33 @@ let stripe_key = node_env === 'development' ? stripe_sk_test : stripe_sk_live;
 class CheckoutForm extends Component {
     constructor(props) {
         super(props);
-        // this.state = {complete: false};
         this.submit = this.submit.bind(this);
     }
 
     state = {
-        complete: false,
-        paying: false,
+        complete: false, // is payment complete?
+        paying: false, //state to show status of the form. Used by the submit button
         cardExpired: '', //state for card expired
-        incorrectCVC: '',
-        cardProcessingError: '',
+        incorrectCVC: '', // state for incorrect CVC
+        cardProcessingError: '', // state for other card errors
         cardError: '' //this is the state that handles card error when tokenization from client does not work. May be due to network or error in card details
     }
 
-    onFocus = (elemType) => {
+    onFocus = (elemType) => { //function for when each Stripe input field is focused
         let id = `stripe-${elemType}`;
         let elem = document.getElementById(id);
-        console.log(elem);
         elem.classList.add("stripe-input-focus")
     }
 
-    onBlur = (elemType) => {
+    onBlur = (elemType) => { //function for when each Stripe input field is blurred
         let id = `stripe-${elemType}`;
         let elem = document.getElementById(id);
-        console.log(elem);
         elem.classList.remove("stripe-input-focus")
     }
 
     async submit(ev) {
         // User clicked submit
-        this.setState({paying: true});
+        this.setState({paying: true}); //sets button text to 'paying...'
         let {token} = await this.props.stripe.createToken({name: "Name"});
         if (token){
             // tokenization is successful and a token is returned. Yay!
@@ -57,21 +54,9 @@ class CheckoutForm extends Component {
                 this.setState({cardError: ''}) // removes error message if there is one already
             }; 
 
-            // console.log(token.id);
             let testToken = 'tok_visa' //this is used in testing for a specific error in stripe
             let tokenId = node_env === 'development' ?  testToken : token.id;
-            // let response = await fetch("/charge", {
-            //     method: "POST",
-            //     headers: {
-            //         'Accept': 'application/json',
-            //         'Content-Type': 'application/json'
-            //     },
-            //     body: JSON.stringify({
-            //         amount: 2000,
-            //         tokenId,
-            //         stripe_key
-            //     })
-            // });
+            
             axios({
                   method: 'post',
                   url: '/charge',
@@ -96,7 +81,7 @@ class CheckoutForm extends Component {
                         // run error handling for major card issues
 
                         this.setState({
-                            paying: false,
+                            paying: false, //this returns button text from 'paying...' back to 'pay and submit'
                             cardError: 'An error occured while initiating the transaction. Please check your card details and/or network.'
                         })
                         
@@ -132,17 +117,11 @@ class CheckoutForm extends Component {
                     console.log(err, err.response)
                 })
 
-            // if (response.ok) {
-            //     this.setState({complete: true});
-            // } else{
-            //     console.log(response, response.err)
-            // }
         } else{
             // token does not complete because card details are incorrect
-            console.log('Token error');
             this.setState({
                 cardError: 'An error occured while initiating the transaction. Please check your card details and/or network.',
-                paying: false
+                paying: false //this returns button text from 'paying...' back to 'pay and submit'
             })
         }
     }
