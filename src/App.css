@@ -81,6 +81,12 @@ h4 a{
     box-shadow: rgba(108, 99, 255, 0.9) 1px 1px 6px;
 }
 
+.form-submit-error{
+    color: #F44336;
+    font-size: 0.92em;
+    margin-top: 5px
+}
+
 
 @media screen and (max-width: 767px){
 		.apply-btn{
