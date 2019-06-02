@@ -46,5 +46,8 @@
     "not ie <= 11",
     "not op_mini all"
   ],
-  "proxy": "http://localhost:9000"
+  "proxy": "http://localhost:9000",
+  "engines": {
+    "node": "10.15"
+  }
 }
