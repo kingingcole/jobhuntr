@@ -3,6 +3,7 @@ import CreateJob1 from './CreateJob1'
 import CreateJob2 from './CreateJob2'
 import CreateJob3 from './CreateJob3'
 import Payment from './Payment'
+import JobSubmitted from './JobSubmitted'
 import BASE_API from '../../constants'
 import axios from 'axios'
 
@@ -87,7 +88,8 @@ class CreateJob extends Component{
         axios.post(url, formData)
             .then(res => {
                 console.log(res.data);
-                this.props.history.push('/job/create/success')
+                // this.props.history.push('/job/create/success')
+                this.nextStep()
             })
             .catch(err => {
                 console.log(err);
@@ -136,6 +138,8 @@ class CreateJob extends Component{
                 submitJob={this.submitJob}
                 amount={this.state.amount}
                 />
+            case 5:
+                return <JobSubmitted />
             default:
                 return null
         }

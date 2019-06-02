@@ -74,11 +74,19 @@ h4 a{
     box-shadow: none !important
 }
 
+.stripe-input-label{
+    color: rgba(108, 99, 255, 0.9) ;
+    font-size: 0.8em;
+    font-weight: 700;
+    text-transform: lowercase;
+}
+
 .stripe-input{
-    border: 1px solid rgba(108, 99, 255, 0.9);
-    border-radius: 5px;
-    padding: 10px 5px;
-    transition: box-shadow 0.4s
+    border-bottom: 1px solid rgba(108, 99, 255, 0.9);
+    border-radius: 0px;
+    padding: 17px 9px;
+    transition: box-shadow 0.4s;
+    background: rgba(219, 218, 233, 0.1);
 }
 
 .stripe-input-focus{

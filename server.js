@@ -7,13 +7,15 @@ app.use(express.json());
 
 app.post("/charge", async (req, res) => {
     try {
-        let {amount, tokenId, stripe_key} = req.body; // params sent in with client
+        let {amount, tokenId, stripe_key, company_name} = req.body; // params sent in with client
         const stripe = require("stripe")(stripe_key); // initializes stripe with the stripe keys passed from client
         // console.log(amount, tokenId, stripe_key);
+        let description = `Payment for job posting for ${company_name} on JobHuntr.io`
         let {status} = await stripe.charges.create({
             amount,
             currency: "usd",
-            description: "An example charge",
+            description,
+            receipt_email: 'emeruchecole9@gmail.com',
             source: tokenId
         });
         console.log(status);

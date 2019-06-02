@@ -5,7 +5,8 @@ import {Link} from "react-router-dom";
 import axios from 'axios'
 
 
-
+// these lines use secret stripe keys hidden in a .env file and not deployed to github
+// to work on this, create a .env file in the project root and add your test keys from stripe
 let stripe_sk_test = process.env.REACT_APP_STRIPE_SECRET_TEST_KEY; //stripe secret test key
 let stripe_sk_live = process.env.REACT_APP_STRIPE_SECRET_LIVE_KEY; //stripe secret live key
 let node_env = process.env.NODE_ENV;
@@ -56,6 +57,11 @@ class CheckoutForm extends Component {
 
             let testToken = 'tok_visa' //this is used in testing for a specific error in stripe
             let tokenId = node_env === 'development' ?  testToken : token.id;
+
+            let {amount, values} = this.props //passed down from Payment.js
+            if (values) {
+                var {company_name} = values
+            }
             
             axios({
                   method: 'post',
@@ -65,16 +71,18 @@ class CheckoutForm extends Component {
                     'Content-Type': 'application/json'
                   },
                   data: {
-                    amount: 29900, //this should be dynamic and coming from price of selected tier in tier selection plan
+                    amount: amount*100 || 2000, //this should be dynamic and coming from price of selected tier in tier selection plan
                     tokenId,
-                    stripe_key
+                    stripe_key,
+                    company_name: company_name || 'Test Inc.'
                   }
             })
                 .then(res => {
                     console.log(res);
                     if (res.data.status === 'succeeded' || res.data.status){
                         // transaction was successful
-                        this.setState({complete: true});
+                        this.props.submitJob()
+                        // this.setState({complete: true});
                         //submit job form here
                     } else{
                         // transaction was not successful
@@ -128,29 +136,32 @@ class CheckoutForm extends Component {
 
     render() {
         let {paying, cardError, cardExpired, incorrectCVC, cardProcessingError} = this.state
+        let {amount, values} = this.props;
         if (this.state.complete) return <h1>Purchase Complete</h1>;
 
         return (
             <div className="checkout" style={{maxWidth: '600px', margin: 'auto'}}>
-                <p>Would you like to complete the purchase?</p>
+                <h3>Submit card details to complete the post for ${amount}</h3>
                 {/*<CardElement/>*/}
 
                 {cardError.length ? (
                             <p className='form-submit-error'>{cardError}</p>
                         ) : (null)}
-
+                <label htmlFor='stripe-cardNumber' className='stripe-input-label'>Card Number</label>
                 <CardNumberElement className='stripe-input' id='stripe-cardNumber' onFocus = {(e) => this.onFocus(e.elementType)} onBlur = {(e) => this.onBlur(e.elementType)}/>
                 {cardProcessingError.length ? (
                             <p className='form-submit-error'>{cardProcessingError}</p>
                         ) : (null)}
                 <div className="row my-4">
                     <div className="col-6">
+                        <label htmlFor='stripe-cardExpiry' className='stripe-input-label'>Expiry Date</label>
                         <CardExpiryElement className='stripe-input' id='stripe-cardExpiry' onFocus= {(e) => this.onFocus(e.elementType)}onBlur = {(e) => this.onBlur(e.elementType)} />
                         {cardExpired.length ? (
                             <p className='form-submit-error'>{cardExpired}</p>
                         ) : (null)}
                     </div>
                     <div className="col-6">
+                        <label htmlFor='stripe-cardCvc' className='stripe-input-label'>CVC</label>
                         <CardCVCElement className='stripe-input' id='stripe-cardCvc' onFocus= {(e) => this.onFocus(e.elementType)} onBlur = {(e) => this.onBlur(e.elementType)}/>
                         {incorrectCVC.length ? (
                             <p className='form-submit-error'>{incorrectCVC}</p>
