@@ -141,7 +141,7 @@ class CheckoutForm extends Component {
 
         return (
             <div className="checkout" style={{maxWidth: '600px', margin: 'auto'}}>
-                <h3>Submit card details to complete the post for ${amount}</h3>
+                <h3>*Submit card details to complete the post for ${amount}</h3>
                 {/*<CardElement/>*/}
 
                 {cardError.length ? (
@@ -179,9 +179,12 @@ class CheckoutForm extends Component {
                             <Button onClick={this.submit} type='button' bgColor='#6C63FF' color='white' className='btn' fontSize='0.875rem' fontWeight='500' padding='7px 37px'>
                                 {paying ? (
                                         'PAYING...'
-                                    ) : ('PAY AND SUBMIT JOB')}
+                                    ) : ('**PAY AND SUBMIT JOB')}
                             </Button>
                     </div>
+                </div>
+                <div className='assurance' style={{marginTop: '20px', fontSize: '0.8em'}}>
+                    <p>* Job will be submitted <i>if</i> payment is successful<br/>** Payment is secured and powered by Stripe. We <b>do not</b> handle your card details.</p>
                 </div>
             </div>
         );

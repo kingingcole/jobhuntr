@@ -64,6 +64,7 @@ class Index extends Component{
                             <Link to='/job/create'>
                                 <Button fontSize='20px'>Post a job <small style={{display: ''}}>from $199</small></Button>
                             </Link>
+                            <i style={{display: 'block', fontSize: '0.8em', marginTop: '5px'}}>No sign up required</i>
 
                             {jobs_section}
                         </div>
