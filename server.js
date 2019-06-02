@@ -3,7 +3,7 @@ const app = express();
 
 
 
-app.use(express.json());
+app.use(express.json(), express.static(path.join(__dirname, 'build')));
 
 app.post("/charge", async (req, res) => {
     try {
@@ -26,5 +26,10 @@ app.post("/charge", async (req, res) => {
         console.log(error)
     }
 });
+
+app.get('*', (req,res) =>{
+    res.sendFile(path.join(__dirname+'/build/index.html'));
+});
+
 
 app.listen(process.env.PORT || 9000, () => console.log("Listening on port 9000"));
