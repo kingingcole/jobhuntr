@@ -3,7 +3,8 @@ const app = express();
 
 
 
-app.use(express.json(), express.static(path.join(__dirname, 'build')));
+app.use(express.static(path.join(__dirname, 'build')));
+app.use('/charge', express.json());
 
 app.post("/charge", async (req, res) => {
     try {
