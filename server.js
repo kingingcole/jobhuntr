@@ -6,9 +6,20 @@ const cors = require("cors")
 
 app.use(express.static(path.join(__dirname, 'build')));
 app.use('/charge', express.json());
-app.use(cors())
+// app.use(cors())
 
-app.post("/charge", async (req, res) => {
+let whitelist = ['localhost:9000', 'http://jobhuntr-develop.herokuapp.com', 'http://herokuapp.com']
+let corsOptions = {
+    origin: function (origin, callback) {
+        if (whitelist.indexOf(origin) !== -1) {
+            callback(null, true)
+        } else {
+            callback(new Error('Not allowed by CORS'))
+        }
+    }
+}
+
+app.post("/charge", cors(corsOptions), async (req, res) => {
     try {
         let {amount, tokenId, stripe_key, company_name} = req.body; // params sent in with client
         const stripe = require("stripe")(stripe_key); // initializes stripe with the stripe keys passed from client
