@@ -137,6 +137,7 @@ class CheckoutForm extends Component {
     render() {
         let {paying, cardError, cardExpired, incorrectCVC, cardProcessingError} = this.state
         let {amount, values} = this.props;
+        console.log(node_env);
         if (this.state.complete) return <h1>Purchase Complete</h1>;
 
         return (
