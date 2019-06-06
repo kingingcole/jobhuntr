@@ -65,7 +65,7 @@ class CheckoutForm extends Component {
             
             axios({
                   method: 'post',
-                  url: '/charge',
+                  url: 'http://localhost:9000/charge',
                   headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json'
