@@ -1,9 +1,24 @@
 const express = require("express");
 const app = express();
+const path = require("path")
+const cors = require("cors")
 
+app.use(cors())
+app.options('*', cors())
+app.use(express.static(path.join(__dirname, 'build')));
+app.use('/charge', express.json());
+// app.use(cors())
 
-
-app.use(express.json());
+let whitelist = ['localhost:9000', 'http://jobhuntr-develop.herokuapp.com', 'http://herokuapp.com']
+let corsOptions = {
+    origin: function (origin, callback) {
+        if (whitelist.indexOf(origin) !== -1) {
+            callback(null, true)
+        } else {
+            callback(new Error('Not allowed by CORS'))
+        }
+    }
+}
 
 app.post("/charge", async (req, res) => {
     try {
@@ -26,5 +41,10 @@ app.post("/charge", async (req, res) => {
         console.log(error)
     }
 });
+
+app.get('*', (req,res) =>{
+    res.sendFile(path.join(__dirname+'/build/index.html'));
+});
+
 
 app.listen(process.env.PORT || 9000, () => console.log("Listening on port 9000"));
