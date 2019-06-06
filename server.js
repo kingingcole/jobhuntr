@@ -3,13 +3,19 @@ const app = express();
 const path = require("path")
 const cors = require("cors")
 
-app.use(cors())
-app.options('*', cors())
+
+app.use(function (req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+})''
+app.use(cors());
+app.options('*', cors());
 app.use(express.static(path.join(__dirname, 'build')));
 app.use('/charge', express.json());
 // app.use(cors())
 
-let whitelist = ['localhost:9000', 'http://jobhuntr-develop.herokuapp.com', 'http://herokuapp.com']
+let whitelist = ['localhost:9000', 'https://jobhuntr-develop.herokuapp.com', 'https://herokuapp.com'];
 let corsOptions = {
     origin: function (origin, callback) {
         if (whitelist.indexOf(origin) !== -1) {
