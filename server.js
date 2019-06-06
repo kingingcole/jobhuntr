@@ -3,7 +3,8 @@ const app = express();
 const path = require("path")
 const cors = require("cors")
 
-
+app.use(cors())
+app.options('*', cors())
 app.use(express.static(path.join(__dirname, 'build')));
 app.use('/charge', express.json());
 // app.use(cors())
@@ -19,7 +20,7 @@ let corsOptions = {
     }
 }
 
-app.post("/charge", cors(corsOptions), async (req, res) => {
+app.post("/charge", async (req, res) => {
     try {
         let {amount, tokenId, stripe_key, company_name} = req.body; // params sent in with client
         const stripe = require("stripe")(stripe_key); // initializes stripe with the stripe keys passed from client
