@@ -13,7 +13,7 @@ class Payment extends Component {
 
     render() {
         let {amount, values, submitJob} = this.props;
-        // console.log(apiKey, node_env);
+        console.log(apiKey, node_env);
         return (
             <StripeProvider apiKey={apiKey}>
                 <section>
