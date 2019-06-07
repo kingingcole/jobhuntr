@@ -7,13 +7,13 @@ let stripe_pk_test = process.env.REACT_APP_STRIPE_PUBLIC_TEST_KEY;
 let stripe_pk_live = process.env.REACT_APP_STRIPE_PUBLIC_LIVE_KEY;
 let node_env = process.env.NODE_ENV
 
-let apiKey = node_env === 'development' ? stripe_pk_test : stripe_pk_live
+let apiKey = node_env === 'development' ? stripe_pk_test : stripe_pk_live;
 
 class Payment extends Component {
 
     render() {
         let {amount, values, submitJob} = this.props;
-        console.log(apiKey);
+        console.log(apiKey, node_env);
         return (
             <StripeProvider apiKey={apiKey}>
                 <section>
