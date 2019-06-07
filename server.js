@@ -49,7 +49,7 @@ app.post("/charge", async (req, res) => {
 });
 
 app.get('*', (req,res) =>{
-    res.sendFile(path.join(__dirname+'/build/inde.html'));
+    res.sendFile(path.join(__dirname+'/build/index.html'));
 });
 
 
