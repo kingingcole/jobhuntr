@@ -7,7 +7,7 @@ node_modules
 .pnp.js
 
 #secrets
-jobhuntr.env
+jobhuntr/.env
 
 
 # testing
